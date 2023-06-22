@@ -1,0 +1,63 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+
+using namespace std;
+
+double fun(int x)
+{
+	double a = x * x - 4.0;
+	return a;
+}
+int main()
+{
+	double a=0.0, b=0.0,e=0.0,c=0.0,fa=0.0,fb=0.0,fc=0.0;
+	int i = 0,itr=0;
+	cout.precision(5);
+	cout.setf(ios::fixed);
+	while (i==0)  // in this loop i am just checking if the entered num is right or not
+	{
+		cout << "enter first gess" << endl;
+		cin >> a;
+		cout << "enter second gess" << endl;
+		cin >> b;
+		if (fun(a)*fun(b)>0) // in here we need two different value for (a) and (b) such that their multiplication should be negative
+		{
+			cout << "enter another gess" << endl;
+		}
+		else
+		{
+			i = 1;
+		}
+	}
+	cout << "enter degree of accuricy" << endl; // in here we want how much precission or after 0.00001 we want
+	cin >> e;
+	cout << endl;
+	cout << "iter" << setw(14) << "a" << setw(18) << "b" << setw(18) << "c" << setw(18) << "fa" << setw(18) << "fb" << setw(18)
+		<< "fc"<<setw(18)<<"|a-b|"<<endl;
+	while (fabs(a-b)>=e) // we need to get the positive value that's wht fabs();
+	{
+		c = (a + b) / 2.0;
+		fa = fun(a);
+		fb = fun(b);
+		fc = fun(c);
+		itr++;
+		cout << itr << setw(14) << a << setw(18) << b << setw(18) << c << setw(18) << fa << setw(18) << fb << setw(18)
+			<< fc << setw(18) << fabs(a - b)<<endl;
+		if (fc==0)
+		{
+			cout << "root of the equation is" << c;
+			return 0;
+		}
+		else if(fa*fc>0) // if fun(a)*fun(c)>0 that means there is no roots between a and c
+		{				        // hence we make 'c' the starting point by putting the value in a;
+			a = c;
+		}
+		else if(fa*fc<0) // here we are doing the opposite of the above;
+		{
+			b = c;
+		}
+	}
+	cout << "the root of the equation is " << c << endl;
+	return 0;
+}
